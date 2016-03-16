@@ -1,0 +1,185 @@
+package russell.tests.algorithms.cyanogen;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeMap;
+
+public class Solution {
+
+    public static void main(String args[]) throws Exception {
+        doCities();
+        // doMaxOccurrences();
+        // doStrings();
+    }
+
+    private static void doCities() {
+        // Sample input
+        // 7 => clinics
+        // 2 => cities
+        // 200000 => population C1
+        // 500000 => population C2
+
+        // Result:
+        // 100000 on largest clinic
+
+        // Objective: minimize the ppl on largest clinic (or largest city??)
+        // each city must have at least 1 clinic
+
+        // System.out.println(partition(7));
+        System.out.println(partition(7, 2));
+        
+        // sort cities by population and sort paritions
+        // 1,6 => 200k,83k
+        // 2,5 => 100k,100k
+        // 3,4 => 66k,125k
+    }
+
+    private static List<List<Integer>> partition(int n, int partitions) {
+        final List<List<Integer>> result = new ArrayList<>();
+        final List<Integer> partial = new ArrayList<>();
+        partition(n, partitions, partial, result);
+        return result;
+    }
+
+    private static void partition(int n, int partitions, List<Integer> partial, List<List<Integer>> result) {
+        if (partial.size() > partitions) {
+            return;
+        }
+        if (n == 0 && partial.size() == partitions) {
+            // Complete solution is held in 'partial' --> add it to list of solutions
+            result.add(new ArrayList<>(partial));
+        } else {
+            // Iterate through all numbers i less than n.
+            // Avoid duplicate solutions by ensuring that the partial array is always non-increasing
+            for (int i = n; i > 0; i--) {
+                if (partial.isEmpty() || partial.get(partial.size() - 1) >= i) {
+                    partial.add(i);
+                    partition(n - i, partitions, partial, result);
+                    partial.remove(partial.size() - 1);
+                }
+            }
+        }
+    }
+
+    private static List<List<Integer>> partition(final int n) {
+        final List<List<Integer>> result = new ArrayList<>();
+        final List<Integer> partial = new ArrayList<>();
+        partition(n, partial, result);
+        return result;
+    }
+
+    private static void partition(int n, List<Integer> partial, List<List<Integer>> partitions) {
+        if (n == 0) {
+            // Complete solution is held in 'partial' --> add it to list of solutions
+            partitions.add(new ArrayList<>(partial));
+        } else {
+            // Iterate through all numbers i less than n.
+            // Avoid duplicate solutions by ensuring that the partial array is always non-increasing
+            for (int i = n; i > 0; i--) {
+                if (partial.isEmpty() || partial.get(partial.size() - 1) >= i) {
+                    partial.add(i);
+                    partition(n - i, partial, partitions);
+                    partial.remove(partial.size() - 1);
+                }
+            }
+        }
+    }
+
+    private static void doStrings() {
+        // sample input:
+        // I do code at hacker rank at midnight
+        // do at hacker midnight
+
+        final Scanner scan = new Scanner(System.in);
+        final String s = scan.nextLine();
+        final String t = scan.nextLine();
+
+        final List<String> listS = new ArrayList<>(Arrays.asList(s.split("\\s+")));
+        final List<String> listT = new ArrayList<>(Arrays.asList(t.split("\\s+")));
+
+        for (String str : listT) {
+            listS.remove(str);
+        }
+
+        System.out.println(listS);
+    }
+
+    private static void doMaxOccurrences() {
+        // Sample input:
+        // 5
+        // 2 4 26
+        // abcdabcdabcdab
+
+        final Scanner scan = new Scanner(System.in);
+        final int length = Integer.parseInt(scan.nextLine());
+
+        String[] split = scan.nextLine().split("\\s+");
+        final int minChars = Integer.parseInt(split[0]);
+
+        final int maxChars = Integer.parseInt(split[1]);
+        final int uniqueChars = Integer.parseInt(split[2]);
+
+        final String string = scan.nextLine();
+
+        final TreeMap<Integer, List<String>> substrings = substrings(string, minChars, maxChars, uniqueChars);
+        System.out.println(substrings);
+        System.out.println("max: " + substrings.lastEntry().getKey());
+    }
+
+    private static TreeMap<Integer, List<String>> substrings(String string, int minChars, int maxChars,
+        int uniqueChars) {
+        final Set<String> substrings = new HashSet<>();
+        final TreeMap<Integer, List<String>> ocurrencesToStrings = new TreeMap<>();
+
+        for (int index = 0; index < string.length(); index++) {
+            for (int chars = minChars; chars <= maxChars; chars++) {
+                try {
+                    // This can be optimized
+                    final String substring = string.substring(index, index + chars);
+                    if (!substrings.contains(substring) && hasUniqueChars(substring, uniqueChars)) {
+                        substrings.add(substring);
+                        final int occurrences = occurrences(string, substring);
+                        List<String> value = ocurrencesToStrings.get(occurrences);
+                        if (value == null) {
+                            value = new ArrayList<>();
+                            ocurrencesToStrings.put(occurrences, value);
+                        }
+                        value.add(substring);
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    // fix later
+                }
+            }
+        }
+
+        return ocurrencesToStrings;
+    }
+
+    private static boolean hasUniqueChars(String substring, int uniqueChars) {
+        final Set<Character> unique = new HashSet<>();
+        for (int i = 0; i < substring.length(); i++) {
+            if (!unique.add(substring.charAt(i)) || unique.size() > uniqueChars) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static int occurrences(String string, String substring) {
+        int count = 0;
+        int lastIndex = 0;
+        while (lastIndex != -1) {
+            lastIndex = string.indexOf(substring, lastIndex);
+            if (lastIndex != -1) {
+                count++;
+                lastIndex = lastIndex + substring.length();
+            }
+        }
+        return count;
+    }
+
+}
