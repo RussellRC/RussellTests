@@ -1,6 +1,6 @@
-package russell.tests.algorithms;
+package russell.tests.algorithms.test;
 
-
+import russell.tests.algorithms.domain.Trie;
 
 public class TrieTest {
     static {

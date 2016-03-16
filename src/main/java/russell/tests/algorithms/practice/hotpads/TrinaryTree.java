@@ -1,4 +1,4 @@
-package russell.tests.algorithms.HotPads;
+package russell.tests.algorithms.practice.hotpads;
 
 
 public class TrinaryTree {

@@ -1,4 +1,4 @@
-package russell.tests.algorithms;
+package russell.tests.algorithms.practice.amz;
 
 import java.io.BufferedReader;
 import java.io.IOException;

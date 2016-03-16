@@ -1,4 +1,4 @@
-package russell.tests.algorithms;
+package russell.tests.algorithms.domain;
 
 import java.util.HashMap;
 import java.util.Map;
