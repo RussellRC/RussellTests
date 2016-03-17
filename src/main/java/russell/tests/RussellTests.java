@@ -55,6 +55,9 @@ public class RussellTests {
     
     public static void main(String[] args) {
 
+        String uri = "/some/sutpid/path/file.css";
+        System.out.println(uri.substring(uri.lastIndexOf("/") + 1));
+        
         //Facebook fb = new FacebookTemplate("");
         
 //        System.out.println(Long.MAX_VALUE);
@@ -75,6 +78,10 @@ public class RussellTests {
 //            System.out.println(Long.MAX_VALUE + i);
 //        }
         
+
+    }
+    
+    public static void testParseLong() {
         System.out.println(Long.MIN_VALUE);
         System.out.println(parseLong(String.valueOf(Long.MIN_VALUE)));
         System.out.println("===");
@@ -92,7 +99,6 @@ public class RussellTests {
             i--;
         }
     }
-    
     
     public static long parseLong(final String s) {
         final boolean isNegative = s.charAt(0) == '-';
