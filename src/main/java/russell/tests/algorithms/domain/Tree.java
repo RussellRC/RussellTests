@@ -110,6 +110,33 @@ public class Tree {
 			return;
 		}
 		
+		postOrderRecursive(node.left);
+		postOrderRecursive(node.right);
+		visit(node);
+	}
+	
+	public static void postOrderIterative(final Node node) {
+	    if (node == null) {
+	        return;
+	    }
+	    
+	    final Deque<Node> stack = new ArrayDeque<>();
+	    Node current = node;
+	    Node lastVisited = null;
+	    while (!stack.isEmpty() || current != null) {
+	        if (current != null) {
+	            stack.push(current);
+	            current = current.left;
+	        } else {
+	            Node peek = stack.peek();
+	            if (peek.right != null && peek.right != lastVisited) {
+	                current = peek.right;
+	            } else {
+	                visit(peek);
+	                lastVisited = stack.pop();
+	            }
+	        }
+	    }
 	}
 
 	public static int getHeight(final Node node) {

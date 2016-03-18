@@ -27,8 +27,20 @@ public class TreeTest {
 		tree.root.right.right.left = new Node("H");
 
 		//testBFS(tree);
-		testPreOrderRecursive(tree);
-		testPreOrderIterative(tree);
+		//testPreOrderRecursive(tree);
+		//testPreOrderIterative(tree);
+		testPostOrderRecursive(tree);
+		testPostOrderIterative(tree);
+	}
+	
+	private static void testPostOrderIterative(final Tree tree) {
+        System.out.println("\n##### Post-order iterative #####");
+        Tree.postOrderIterative(tree.root);
+    }
+	
+	private static void testPostOrderRecursive(final Tree tree) {
+	    System.out.println("\n##### Post-order rec #####");
+	    Tree.postOrderRecursive(tree.root);
 	}
 	
 	private static void testPreOrderRecursive(Tree tree) {
