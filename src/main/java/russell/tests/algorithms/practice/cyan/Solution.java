@@ -1,4 +1,4 @@
-package russell.tests.algorithms.cyanogen;
+package russell.tests.algorithms.practice.cyan;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,63 +30,11 @@ public class Solution {
         // each city must have at least 1 clinic
 
         // System.out.println(partition(7));
-        System.out.println(partition(7, 2));
         
         // sort cities by population and sort paritions
         // 1,6 => 200k,83k
         // 2,5 => 100k,100k
         // 3,4 => 66k,125k
-    }
-
-    private static List<List<Integer>> partition(int n, int partitions) {
-        final List<List<Integer>> result = new ArrayList<>();
-        final List<Integer> partial = new ArrayList<>();
-        partition(n, partitions, partial, result);
-        return result;
-    }
-
-    private static void partition(int n, int partitions, List<Integer> partial, List<List<Integer>> result) {
-        if (partial.size() > partitions) {
-            return;
-        }
-        if (n == 0 && partial.size() == partitions) {
-            // Complete solution is held in 'partial' --> add it to list of solutions
-            result.add(new ArrayList<>(partial));
-        } else {
-            // Iterate through all numbers i less than n.
-            // Avoid duplicate solutions by ensuring that the partial array is always non-increasing
-            for (int i = n; i > 0; i--) {
-                if (partial.isEmpty() || partial.get(partial.size() - 1) >= i) {
-                    partial.add(i);
-                    partition(n - i, partitions, partial, result);
-                    partial.remove(partial.size() - 1);
-                }
-            }
-        }
-    }
-
-    private static List<List<Integer>> partition(final int n) {
-        final List<List<Integer>> result = new ArrayList<>();
-        final List<Integer> partial = new ArrayList<>();
-        partition(n, partial, result);
-        return result;
-    }
-
-    private static void partition(int n, List<Integer> partial, List<List<Integer>> partitions) {
-        if (n == 0) {
-            // Complete solution is held in 'partial' --> add it to list of solutions
-            partitions.add(new ArrayList<>(partial));
-        } else {
-            // Iterate through all numbers i less than n.
-            // Avoid duplicate solutions by ensuring that the partial array is always non-increasing
-            for (int i = n; i > 0; i--) {
-                if (partial.isEmpty() || partial.get(partial.size() - 1) >= i) {
-                    partial.add(i);
-                    partition(n - i, partial, partitions);
-                    partial.remove(partial.size() - 1);
-                }
-            }
-        }
     }
 
     private static void doStrings() {

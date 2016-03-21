@@ -55,8 +55,14 @@ public class RussellTests {
     
     public static void main(String[] args) {
 
-        String uri = "/some/sutpid/path/file.css";
-        System.out.println(uri.substring(uri.lastIndexOf("/") + 1));
+    	int[] prices = {100, 90, 80, 70, 60};
+    	int profit = 0;
+        int minElement = Integer.MAX_VALUE;
+        for(int i=0; i<prices.length; i++){
+           profit = Math.max(profit, prices[i]-minElement);
+           minElement = Math.min(minElement, prices[i]);
+        }
+        System.out.println(profit);
         
         //Facebook fb = new FacebookTemplate("");
         
