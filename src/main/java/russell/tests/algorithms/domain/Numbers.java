@@ -1,13 +1,16 @@
-package russell.tests.algorithms;
+package russell.tests.algorithms.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Prime {
+public class Numbers {
 
     public static void main(String[] args) {
-        System.out.println(getPrimes(20));
+        
+    	//System.out.println(getPrimes(20));
+        
+    	System.out.println(greatestCommonDenominator(48, 180));
     }
     
     public static List<Integer> getPrimes(int n) {
@@ -38,5 +41,12 @@ public class Prime {
             }
         }
         return true;
+    }
+    
+    public static int greatestCommonDenominator(int a, int b) {
+    	if (b == 0) {
+    		return a;
+    	}
+    	return greatestCommonDenominator(b, a % b);
     }
 }

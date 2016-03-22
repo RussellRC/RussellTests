@@ -1,4 +1,4 @@
-package russell.tests.algorithms.test;
+package russell.tests.algorithms.domain;
 
 import java.util.List;
 
