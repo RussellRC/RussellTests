@@ -2,29 +2,26 @@ package russell.tests;
 
 import java.io.InputStream;
 import java.io.StringReader;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.TimeZone;
-import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,15 +34,15 @@ import org.apache.commons.lang3.text.translate.LookupTranslator;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
-import org.springframework.social.facebook.api.Facebook;
-import org.springframework.social.facebook.api.impl.FacebookTemplate;
-
-import au.com.bytecode.opencsv.CSVParser;
-import au.com.bytecode.opencsv.CSVReader;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import com.jayway.jsonpath.JsonPath;
+
+import au.com.bytecode.opencsv.CSVParser;
+import au.com.bytecode.opencsv.CSVReader;
 
 
 public class RussellTests {
@@ -53,38 +50,57 @@ public class RussellTests {
     final static ObjectMapper mapper = new ObjectMapper();
     LinkedList<String> ll;
     
+    private static final Map<Integer, String> columnCache = new HashMap<>();
+    
     public static void main(String[] args) {
-
-    	int[] prices = {100, 90, 80, 70, 60};
-    	int profit = 0;
-        int minElement = Integer.MAX_VALUE;
-        for(int i=0; i<prices.length; i++){
-           profit = Math.max(profit, prices[i]-minElement);
-           minElement = Math.min(minElement, prices[i]);
+        
+        byte[] b = new byte[]{2, 2};
+        String s = new String(b);
+        System.out.println(s);
+        
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        int i;
+        for (i = 0; i < b.length; i++) {
+            out.write(b[i]);
         }
-        System.out.println(profit);
+        while (i % 8 != 0) {
+            out.write((byte) 0);
+            i++;
+        }
+        ByteBuffer bb = ByteBuffer.wrap(out.toByteArray());
+        bb.order(ByteOrder.nativeOrder());
         
-        //Facebook fb = new FacebookTemplate("");
+        System.out.println(bb.getLong());
         
-//        System.out.println(Long.MAX_VALUE);
-//        long i = Long.MAX_VALUE;
-//        while (i*10 < 0) {
-//            i = i/10;
-//        }
-//        System.out.println(i);
+        long bytes = 0b10000111_00000000_00000000_00000001; // (2^8) + (2^7)
+        System.out.println(bytes);
         
-//        System.out.println();
-//        System.out.println(Long.MAX_VALUE);
-//        for (int i = 0; i < 10; i++) {
-//            System.out.println((Long.MAX_VALUE - i) * 10);
-//        }
-//        
-//        System.out.println();
-//        for (int i = 1; i < 10; i++) {
-//            System.out.println(Long.MAX_VALUE + i);
-//        }
-        
-
+        //testToColumn();
+    }
+    
+    public static void testToColumn() {
+        String toCol = "";
+        for (int i = 0; toCol.length() < 3; i++) {
+            toCol = toColumn(i);
+            System.out.println(i + " = " + toCol);
+        }      
+    }
+    
+    public static String toColumn(int num) {
+        String column = columnCache.get(num);
+        if (column != null) {
+            return column;
+        }
+        if (num >= 0 && num < 26) {
+            column = new Character((char) ('A' + num)).toString();
+            columnCache.put(num, column);
+            return column;
+        } else if (num > 25) {
+            column = toColumn((num / 26)-1) + toColumn(num % 26);
+            columnCache.put(num, column);
+            return column;
+        } else
+            throw new RuntimeException("Invalid Column #" + (num + 1));
     }
     
     public static void testParseLong() {
