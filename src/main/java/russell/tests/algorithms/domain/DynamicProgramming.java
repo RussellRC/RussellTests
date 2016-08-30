@@ -20,7 +20,7 @@ public class DynamicProgramming {
 		return false;
 	}
 	
-	public static int sortestPathSum(int[][] grid) {
+	public static int shortestPathSum(int[][] grid) {
 		if (grid == null || grid.length == 0 || grid[0].length == 0) {
 			return 0;
 		}

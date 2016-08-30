@@ -21,7 +21,7 @@ public class DynamicProgrammingTest {
 				{ 3, 8, 9, 6, 10 }, 
 				{ 12, 14, 15, 20, 18 } };
 		
-		System.out.println(DynamicProgramming.sortestPathSum(grid));
+		System.out.println(DynamicProgramming.shortestPathSum(grid));
 
 	}
 

@@ -1,4 +1,4 @@
-package russell.tests.algorithms;
+package russell.tests.algorithms.unsorted;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
