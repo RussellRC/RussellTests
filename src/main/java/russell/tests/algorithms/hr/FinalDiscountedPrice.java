@@ -1,9 +1,6 @@
 package russell.tests.algorithms.hr;
 
 import java.util.Arrays;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.stream.Collectors;
 
 /**
  * the shoekeeper gives a discount di, which is the price of the first item to its right satisfying di <= price;
@@ -36,16 +33,19 @@ public class FinalDiscountedPrice {
         // Last element is never discounted
         int lastDiscount = prices[prices.length - 1];
         int total = lastDiscount;
-        final Deque<Integer> noDiscountIndexes = new LinkedList<>();
-        noDiscountIndexes.addFirst(discounts.length-1);
         
+        // Deque would be cool for this
+        final int[] noDiscountIndexes = new int[discounts.length];
+        noDiscountIndexes[noDiscountIndexes.length-1] = discounts.length-1;
+        
+        int j = noDiscountIndexes.length-2;
         for (int i = discounts.length-2; i >= 0; i--) {
             if (lastDiscount <= prices[i]) {
                 discounts[i] = lastDiscount;
             } else {
                 discounts[i] = 0;
                 lastDiscount = 0;
-                noDiscountIndexes.addFirst(i);
+                noDiscountIndexes[j--] = i;
             }
             
             if (i > 0 && prices[i] <= prices[i-1]) {
@@ -57,7 +57,9 @@ public class FinalDiscountedPrice {
         
         System.out.println(Arrays.toString(discounts));
         System.out.println(total);
-        System.out.println(noDiscountIndexes.stream().map(Object::toString).collect(Collectors.joining(" ")));
-        System.out.println("==========");
+        for (int i = j+1; i < noDiscountIndexes.length; i++) {
+            System.out.print(noDiscountIndexes[i] + " ");
+        }
+        System.out.println("\n==========");
     }
 }
