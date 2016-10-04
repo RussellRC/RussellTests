@@ -2,6 +2,7 @@ package russell.tests;
 
 import java.io.InputStream;
 import java.io.StringReader;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
@@ -54,28 +55,32 @@ public class RussellTests {
     
     public static void main(String[] args) {
         
-        byte[] b = new byte[]{2, 2};
-        String s = new String(b);
-        System.out.println(s);
+        System.out.println(4 % 2);
         
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        int i;
-        for (i = 0; i < b.length; i++) {
-            out.write(b[i]);
-        }
-        while (i % 8 != 0) {
-            out.write((byte) 0);
-            i++;
-        }
-        ByteBuffer bb = ByteBuffer.wrap(out.toByteArray());
-        bb.order(ByteOrder.nativeOrder());
+        final Scanner scan = new Scanner(System.in);
         
-        System.out.println(bb.getLong());
-        
-        long bytes = 0b10000111_00000000_00000000_00000001; // (2^8) + (2^7)
-        System.out.println(bytes);
-        
-        //testToColumn();
+//        byte[] b = new byte[]{2, 2};
+//        String s = new String(b);
+//        System.out.println(s);
+//        
+//        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+//        int i;
+//        for (i = 0; i < b.length; i++) {
+//            out.write(b[i]);
+//        }
+//        while (i % 8 != 0) {
+//            out.write((byte) 0);
+//            i++;
+//        }
+//        ByteBuffer bb = ByteBuffer.wrap(out.toByteArray());
+//        bb.order(ByteOrder.nativeOrder());
+//        
+//        System.out.println(bb.getLong());
+//        
+//        long bytes = 0b10000111_00000000_00000000_00000001; // (2^8) + (2^7)
+//        System.out.println(bytes);
+//        
+//        //testToColumn();
     }
     
     public static void testToColumn() {
