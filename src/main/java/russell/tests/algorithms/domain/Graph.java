@@ -142,6 +142,7 @@ public class Graph {
         final Set<Node> visited = new HashSet<>();
         visited.add(originNode);
         
+        // Map that holds the link from previous to node
         final Map<Node, Node> previous = new HashMap<Node, Node>();
         
         while (!pending.isEmpty()) {
@@ -193,6 +194,7 @@ public class Graph {
     }
     
     public static Graph cloneGraph(final Node node) {
+    	// Map of visited nodes, where k=node v=clone, so that there is only 1 clone per node
     	final Map<Node, Node> visited = new HashMap<>();
     	final Queue<Node> pending = new LinkedList<>();
     	
@@ -210,6 +212,7 @@ public class Graph {
     		for (Node adjacent : current.adjacents) {
     			Node adjacentClone = visited.get(adjacent);
     			if (adjacentClone == null) {
+    				// Create new clone when it doesn't already exist
     				adjacentClone = new Node(adjacent.value);
     			}
     			clone.adjacents.add(adjacentClone);

@@ -20,13 +20,15 @@ public class DynamicProgramming {
 		return false;
 	}
 	
-	public static int sortestPathSum(int[][] grid) {
+	public static int shortestPathSum(int[][] grid) {
 		if (grid == null || grid.length == 0 || grid[0].length == 0) {
 			return 0;
 		}
 		
 		int[] temp = new int[grid[0].length];
 		int minSum = Integer.MAX_VALUE;
+		
+		// init temp with min sum of first row
 		for (int i = 0; i < grid[0].length; i++) {
 			temp[i] = grid[0][i];
 			minSum = Math.min(minSum, temp[i]);

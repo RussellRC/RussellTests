@@ -37,8 +37,6 @@ import org.apache.commons.lang3.text.translate.LookupTranslator;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
-import org.springframework.social.facebook.api.Facebook;
-import org.springframework.social.facebook.api.impl.FacebookTemplate;
 
 import au.com.bytecode.opencsv.CSVParser;
 import au.com.bytecode.opencsv.CSVReader;
@@ -55,7 +53,16 @@ public class RussellTests {
     
     public static void main(String[] args) {
 
-    	int[] prices = {100, 90, 80, 70, 60};
+
+
+        
+
+    }
+    
+    public static void testProfit() {
+    	//int[] prices = {100, 90, 80, 70, 60};
+    	int[] prices = {60, 70, 80, 90, 100};
+    	
     	int profit = 0;
         int minElement = Integer.MAX_VALUE;
         for(int i=0; i<prices.length; i++){
@@ -63,28 +70,6 @@ public class RussellTests {
            minElement = Math.min(minElement, prices[i]);
         }
         System.out.println(profit);
-        
-        //Facebook fb = new FacebookTemplate("");
-        
-//        System.out.println(Long.MAX_VALUE);
-//        long i = Long.MAX_VALUE;
-//        while (i*10 < 0) {
-//            i = i/10;
-//        }
-//        System.out.println(i);
-        
-//        System.out.println();
-//        System.out.println(Long.MAX_VALUE);
-//        for (int i = 0; i < 10; i++) {
-//            System.out.println((Long.MAX_VALUE - i) * 10);
-//        }
-//        
-//        System.out.println();
-//        for (int i = 1; i < 10; i++) {
-//            System.out.println(Long.MAX_VALUE + i);
-//        }
-        
-
     }
     
     public static void testParseLong() {
