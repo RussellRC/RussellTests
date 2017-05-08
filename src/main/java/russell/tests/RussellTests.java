@@ -8,23 +8,18 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.TimeZone;
-import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,12 +33,12 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
-import au.com.bytecode.opencsv.CSVParser;
-import au.com.bytecode.opencsv.CSVReader;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
+
+import au.com.bytecode.opencsv.CSVParser;
+import au.com.bytecode.opencsv.CSVReader;
 
 
 public class RussellTests {
@@ -51,9 +46,9 @@ public class RussellTests {
     final static ObjectMapper mapper = new ObjectMapper();
     LinkedList<String> ll;
     
+    private static final Map<Integer, String> columnCache = new HashMap<>();
+    
     public static void main(String[] args) {
-
-
 
         
 
@@ -70,6 +65,31 @@ public class RussellTests {
            minElement = Math.min(minElement, prices[i]);
         }
         System.out.println(profit);
+    }
+    
+    public static void testToColumn() {
+        String toCol = "";
+        for (int i = 0; toCol.length() < 3; i++) {
+            toCol = toColumn(i);
+            System.out.println(i + " = " + toCol);
+        }      
+    }
+    
+    public static String toColumn(int num) {
+        String column = columnCache.get(num);
+        if (column != null) {
+            return column;
+        }
+        if (num >= 0 && num < 26) {
+            column = new Character((char) ('A' + num)).toString();
+            columnCache.put(num, column);
+            return column;
+        } else if (num > 25) {
+            column = toColumn((num / 26)-1) + toColumn(num % 26);
+            columnCache.put(num, column);
+            return column;
+        } else
+            throw new RuntimeException("Invalid Column #" + (num + 1));
     }
     
     public static void testParseLong() {
