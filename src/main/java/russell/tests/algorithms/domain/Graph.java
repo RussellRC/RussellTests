@@ -1,10 +1,10 @@
 package russell.tests.algorithms.domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +19,14 @@ public class Graph {
 	public static final Logger log = LoggerFactory.getLogger(Graph.class);
 
 	public Node root;
+	public List<Node> roots;
 
 	Graph(final Node root) {
 		this.root = root;
+	}
+	
+	Graph(final List<Node> roots) {
+	    this.roots = roots;
 	}
 
 	/**
@@ -77,26 +82,6 @@ public class Graph {
 			this.path = path;
 		}
 	}
-
-	/** creates a new default graph */
-	public static Graph newGraph() {
-		final Node n0 = new Node(0);
-		final Node n1 = new Node(1);
-		final Node n2 = new Node(2);
-		final Node n3 = new Node(3);
-		final Node n4 = new Node(4);
-		final Node n5 = new Node(5);
-
-		n0.adjacents = Arrays.asList(n1, n4, n5);
-		n1.adjacents = Arrays.asList(n0, n4, n3);
-		n2.adjacents = Arrays.asList(n1);
-		n3.adjacents = Arrays.asList(n2, n4);
-		n4.adjacents = Collections.emptyList();
-		n5.adjacents = Collections.emptyList();
-
-		final Graph g = new Graph(n0);
-		return g;
-	}
 	
 	public static boolean areConnected(final Graph graph, final int a, final int b) {
         final BFSResult fromGraphToA = findNodeBFS(graph.root, a);
@@ -116,6 +101,7 @@ public class Graph {
         if (fromGraphToB.destNode != null) {
             final BFSResult fromBtoA = findNodeBFS(fromGraphToB.destNode, a);
             if (fromBtoA.destNode != null) {
+                printPath(fromBtoA);
                 return true;
             }
         }
@@ -168,6 +154,13 @@ public class Graph {
         return new BFSResult(originNode, null, null);
     }
     
+    /**
+     * Detph First Search
+     * @param originNode
+     * @param value
+     * @param visited
+     * @return
+     */
     public static Node findNodeDFS(final Node originNode, final int value, final Set<Node> visited) {
         
         if (originNode == null || visited.contains(originNode)) {
@@ -190,6 +183,38 @@ public class Graph {
             }
         }
         
+        return null;
+    }
+    
+    /**
+     * DFS iterative
+     * @param originNode
+     * @param value
+     * @return
+     */
+    public static Node dfsIterative(final Node originNode, final int value) {
+        final Set<Node> visited = new HashSet<>();
+        
+        final Deque<Node> pending = new LinkedList<>();
+        pending.push(originNode);
+        
+        while (!pending.isEmpty()) {
+            final Node pop = pending.pop();
+            
+            if (!visited.contains(pop)) {
+                visited.add(pop);
+                System.out.println("Visiting: "+ pop.value);
+                if (pop.value == value) {
+                    return pop;
+                }
+            }
+            
+            if (pop.adjacents != null) {
+                for (final Node adj : pop.adjacents) {
+                    pending.addFirst(adj);
+                }
+            }
+        }
         return null;
     }
     
@@ -225,5 +250,37 @@ public class Graph {
     	}
     	
     	return new Graph(root);
+    }
+    
+    
+    /**
+     * 
+     * @param g
+     */
+    public static void topologicalSort(Graph g) {
+        
+        final Deque<Node> stack = new LinkedList<>();
+        final Set<Node> visited = new LinkedHashSet<>();
+        
+        for (Node root : g.roots) {
+            if (!visited.contains(root)) {
+                visitTopoSort(root, visited, stack);
+            }
+        }
+        
+        while (!stack.isEmpty()) {
+            System.out.println(stack.pop());
+        }
+    }
+    
+    private static void visitTopoSort(final Node node, final Set<Node> visited, final Deque<Node> stack) {
+        visited.add(node);
+        for (Node adj : node.adjacents) {
+            if (!visited.contains(adj)) {
+                visitTopoSort(adj, visited, stack);
+            }
+        }
+        
+        stack.push(node);
     }
 }

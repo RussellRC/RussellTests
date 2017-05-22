@@ -16,7 +16,9 @@ import java.util.Set;
  * 
  * Nikita loves this game and wants your help getting the best score possible. Given , can you find and print the maximum number of points
  * she can score?
- * *
+ * 
+ * https://www.hackerrank.com/challenges/array-splitting
+ * 
  */
 public class Nikita {
 

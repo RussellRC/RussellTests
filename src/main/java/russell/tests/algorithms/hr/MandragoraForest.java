@@ -3,6 +3,9 @@ package russell.tests.algorithms.hr;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * https://www.hackerrank.com/challenges/mandragora
+ */
 public class MandragoraForest {
 
     public static void main(String[] args) {
@@ -36,7 +39,12 @@ public class MandragoraForest {
         long eatHP = 0;
         for (int i = 0; i < mandragoras.length; i++) {
             eatHP = eatHP + mandragoras[i];
+            
+            // eating a monster causes str to increase by one, 
+            // but decreases the max XP we can get by health of eaten mandragora  
             long newXP = (str + 1) * (totalHP - eatHP);
+            
+            // keep battling mandragoras until there is no increase in xp
             if (newXP > xp) {
                 xp = newXP;
                 str++;

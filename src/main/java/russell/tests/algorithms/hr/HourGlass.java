@@ -2,6 +2,11 @@ package russell.tests.algorithms.hr;
 import java.io.*;
 import java.util.*;
 
+/**
+ * https://www.hackerrank.com/challenges/2d-array
+ * @author russellrazo
+ *
+ */
 public class HourGlass {
 
     public static void main(String[] args) {

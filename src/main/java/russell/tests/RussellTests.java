@@ -48,9 +48,10 @@ public class RussellTests {
     
     private static final Map<Integer, String> columnCache = new HashMap<>();
     
+    
     public static void main(String[] args) {
 
-        
+        System.out.println('a' < 'b');
 
     }
     

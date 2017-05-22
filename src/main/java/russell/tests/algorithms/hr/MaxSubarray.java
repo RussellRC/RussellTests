@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 import org.springframework.util.Assert;
 
+/**
+ * https://www.hackerrank.com/challenges/maxsubarray
+ */
 public class MaxSubarray {
 
     public static void main(String[] args) {

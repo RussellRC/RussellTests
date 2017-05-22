@@ -1,30 +1,39 @@
 package russell.tests.algorithms.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import russell.tests.algorithms.domain.Tree;
 import russell.tests.algorithms.domain.Tree.Node;
 
+@RunWith(JUnit4.class)
 public class TreeTest {
 
-	public static void main(String[] args) {
+    final static Tree<String> letterTree = newLetterTree();
+    final static Tree<Integer> numberTree = newNumberTree();
+    
+    
+//    public static void main(String[] args) {
+//        testBFS(tree);
+//        testPreOrderRecursive(tree);
+//        testPreOrderIterative(tree);
+//        testInOrderIterative(letterTree);
+//        testPostOrderRecursive(letterTree);
+//        testPostOrderIterative(tree);
+//        testFlattenTree(letterTree);
+//
+//        testHasLeafPathSum(numberTree);
+//        testAllLeafPathSum(numberTree);
+//        testBuildTree();
+//    }
 
-		final Tree<String> letterTree = newLetterTree();
-		final Tree<Integer> numberTree = newNumberTree();
-		// testBFS(tree);
-		// testPreOrderRecursive(tree);
-		// testPreOrderIterative(tree);
-		//testInOrderIterative(letterTree);
-		//testPostOrderRecursive(letterTree);
-		// testPostOrderIterative(tree);
-		// testFlattenTree(letterTree);
-
-		// testHasLeafPathSum(numberTree);
-		// testAllLeafPathSum(numberTree);
-		testBuildTree();
-	}
-
-	public static void testBuildTree() {
+	@Test
+	public void testBuildTree() {
 		System.out.println("\n##### Build Tree from InOrder+PostOrder #####");
 		Node<Integer> root = Tree.buildTree(Arrays.asList(4, 2, 5, 1, 6, 7, 3, 8),
 											Arrays.asList(4, 5, 2, 6, 7, 8, 3, 1));
@@ -36,64 +45,97 @@ public class TreeTest {
 		Tree.inOrderIterative(root2);
 	}
 
-	public static void testAllLeafPathSum(final Tree tree) {
+	@Test
+	public void testAllLeafPathSum() {
 		System.out.println("\n##### All Root-Leaf Paths to Sum #####");
-		System.out.println(Tree.allLeafPathSum(tree.root, 22));
+		System.out.println(Tree.allLeafPathSum(numberTree.root, 22));
 	}
 
-	public static void testHasLeafPathSum(final Tree tree) {
+	@Test
+	public void testHasLeafPathSum() {
 		System.out.println("\n##### Has Leaf Path to Sum #####");
-		System.out.println(Tree.hasLeafPathSum(tree.root, 27));
-		System.out.println(Tree.hasLeafPathSum(tree.root, 22));
-		System.out.println(Tree.hasLeafPathSum(tree.root, 26));
-		System.out.println(Tree.hasLeafPathSum(tree.root, 18));
-		System.out.println(Tree.hasLeafPathSum(tree.root, 13));
+		System.out.println(Tree.hasLeafPathSum(numberTree.root, 27));
+		System.out.println(Tree.hasLeafPathSum(numberTree.root, 22));
+		System.out.println(Tree.hasLeafPathSum(numberTree.root, 26));
+		System.out.println(Tree.hasLeafPathSum(numberTree.root, 18));
+		System.out.println(Tree.hasLeafPathSum(numberTree.root, 13));
 	}
 
-	public static void testFlattenTree(final Tree tree) {
+	@Test
+	public void testFlattenTree() {
 		System.out.println("\n##### Flatten Tree #####");
-		System.out.println(Tree.flattenTree(tree.root));
+		System.out.println(Tree.flattenTree(letterTree.root));
 	}
 
-	public static void testPostOrderIterative(final Tree tree) {
+	@Test
+	public void testPostOrderIterative() {
 		System.out.println("\n##### Post-order iterative #####");
-		Tree.postOrderIterative(tree.root);
+		Tree.postOrderIterative(letterTree.root);
 	}
 
-	public static void testPostOrderRecursive(final Tree tree) {
+	@Test
+	public void testPostOrderRecursive() {
 		System.out.println("\n##### Post-order rec #####");
-		Tree.postOrderRecursive(tree.root);
+		Tree.postOrderRecursive(letterTree.root);
 	}
 
-	public static void testPreOrderRecursive(Tree tree) {
+	@Test
+	public void testPreOrderRecursive() {
 		System.out.println("\n##### Pre-order rec #####");
-		Tree.preOrderRecursive(tree.root);
+		Tree.preOrderRecursive(letterTree.root);
 	}
 
-	public static void testPreOrderIterative(Tree tree) {
+	@Test
+	public void testPreOrderIterative() {
 		System.out.println("\n##### Pre-order iterative #####");
-		Tree.preOrderIterative(tree.root);
+		Tree.preOrderIterative(letterTree.root);
 	}
 
-	public static void testBFS(Tree tree) {
+	@Test
+	public void testBFSLetter() {
 		System.out.println("\n##### BFS #####");
-		Tree.bfs(tree.root);
+		Tree.bfs(letterTree.root);
+	}
+	
+	@Test
+	public void testBFSNumber() {
+        System.out.println("\n##### BFS #####");
+        Tree.bfs(numberTree.root);
+    }
+
+	@Test
+	public void testTreeHeight() {
+		System.out.println("height of tree: " + Tree.getHeight(letterTree.root));
 	}
 
-	public static void testTreeHeight(final Tree tree) {
-		System.out.println("height of tree: " + Tree.getHeight(tree.root));
-	}
-
-	public static void testInOrderRecursive(final Tree tree) {
+	@Test
+	public void testInOrderRecursive() {
 		System.out.println("\n##### in-order rec #####");
-		Tree.inOrderRecursive(tree.root);
+		Tree.inOrderRecursive(letterTree.root);
 	}
 
-	public static void testInOrderIterative(final Tree tree) {
+	@Test
+	public void testInOrderIterative() {
 		System.out.println("\n\n##### in-order iterative #####");
-		Tree.inOrderIterative(tree.root);
+		Tree.inOrderIterative(letterTree.root);
+	}
+	
+	@Test
+	public void rootToLeafPaths() {
+	    System.out.println("\n\n##### Root To Leaf Paths #####");
+        
+	    final List<List<Integer>> result = new ArrayList<>();
+	    final List<Integer> path = new ArrayList<>();
+	    
+	    Tree.rootToLeafPaths(numberTree.root, path, result);
+	    
+	    System.out.println(result);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private static Tree<String> newLetterTree() {
 		final Tree<String> tree = new Tree<>();
 		tree.root = new Node<>("F");
@@ -116,11 +158,19 @@ public class TreeTest {
 		return tree;
 	}
 
+	/**
+	 *          5
+	 *     4        8
+	 *   11      13    4  
+	 *  7  2          5 1
+	 * @return
+	 */
 	private static Tree<Integer> newNumberTree() {
 		final Tree<Integer> tree = new Tree<>();
 		tree.root = new Node<>(5);
 		tree.root.left = new Node<>(4);
 		tree.root.right = new Node<>(8);
+		
 		tree.root.left.left = new Node<>(11);
 		tree.root.left.left.left = new Node<>(7);
 		tree.root.left.left.right = new Node<>(2);

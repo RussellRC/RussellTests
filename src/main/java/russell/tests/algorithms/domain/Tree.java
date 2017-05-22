@@ -303,4 +303,29 @@ public class Tree<T> {
 		
 		return root;
 	}
+	
+	/**
+	 * 
+	 * @param node
+	 * @param path
+	 * @param result
+	 */
+	public static void rootToLeafPaths(final Node<Integer> node, final List<Integer> path, final List<List<Integer>> result) {
+	    if (node == null) {
+	        return;
+	    }
+	    
+	    if (node.left == null && node.right == null) {
+	        // node is leaf, add path to result
+	        final List<Integer> p = new ArrayList<>(path);
+	        p.add(node.data);
+	        result.add(p);
+	        return;
+	    }
+	    
+	    path.add(node.data);
+	    rootToLeafPaths(node.left, path, result);
+	    rootToLeafPaths(node.right, path, result);
+	    path.remove(path.size()-1);
+	}
 }

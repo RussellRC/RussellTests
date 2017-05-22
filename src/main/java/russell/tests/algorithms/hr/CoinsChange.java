@@ -12,6 +12,10 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+
+/**
+ * @see {@link http://www.ideserve.co.in/learn/coin-change-problem-number-of-ways-to-make-change}
+ */
 public class CoinsChange {
 
 //     public static void main(String[] args) {
