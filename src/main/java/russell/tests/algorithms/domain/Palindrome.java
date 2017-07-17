@@ -52,11 +52,13 @@ public class Palindrome {
 		String longestPalindrome = string.substring(0, 1);
 
 		for (int i = 0; i < string.length() - 1; i++) {
+		    // longest odd palindrome
 			temp = longestPalindrome(string, i, i);
 			if (temp.length() > longestPalindrome.length()) {
 				longestPalindrome = temp;
 			}
 
+			// longest even palindrome
 			temp = longestPalindrome(string, i, i + 1);
 			if (temp.length() > longestPalindrome.length()) {
 				longestPalindrome = temp;

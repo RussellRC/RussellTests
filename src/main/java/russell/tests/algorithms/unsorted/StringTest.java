@@ -4,7 +4,7 @@ package russell.tests.algorithms.unsorted;
 public class StringTest {
 
     public static void main(String[] args) {        
-        //allPossibleSubstrings("word");
+        allPossibleSubstrings("word");
     	
     }
 

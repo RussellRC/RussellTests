@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -14,9 +16,15 @@ import russell.tests.algorithms.domain.Tree.Node;
 @RunWith(JUnit4.class)
 public class TreeTest {
 
-    final static Tree<String> letterTree = newLetterTree();
-    final static Tree<Integer> numberTree = newNumberTree();
     
+    private static Tree<String> letterTree;
+    private static Tree<Integer> numberTree;
+    
+    @BeforeClass
+    public static void beforeClass() {
+        letterTree = newLetterTree();
+        numberTree = newNumberTree();
+    }
     
 //    public static void main(String[] args) {
 //        testBFS(tree);
@@ -32,6 +40,27 @@ public class TreeTest {
 //        testBuildTree();
 //    }
 
+    @Test
+    public void testPathToNode() {
+        System.out.println(Tree.pathToNode(numberTree.root, null, 5));
+        System.out.println(Tree.pathToNode(numberTree.root, null, 11));
+        System.out.println(Tree.pathToNode(numberTree.root, null, 7));
+        System.out.println(Tree.pathToNode(numberTree.root, null, 2));
+        System.out.println(Tree.pathToNode(numberTree.root, null, 8));
+        System.out.println(Tree.pathToNode(numberTree.root, null, 3));
+        System.out.println(Tree.pathToNode(numberTree.root, null, 1));
+        
+        System.out.println(Tree.pathToNode(numberTree.root, null, 50));
+    }
+    
+    @Test
+    public void testDistance() {
+        Assert.assertEquals(Tree.distance(letterTree.root, "F", "A"), 2);
+        Assert.assertEquals(Tree.distance(letterTree.root, "F", "H"), 3);
+        Assert.assertEquals(Tree.distance(letterTree.root, "E", "H"), 6);
+        Assert.assertEquals(Tree.distance(letterTree.root, "B", "C"), 2);
+    }
+    
 	@Test
 	public void testBuildTree() {
 		System.out.println("\n##### Build Tree from InOrder+PostOrder #####");
@@ -133,7 +162,10 @@ public class TreeTest {
 	}
 
 	/**
-	 * 
+	 *              F
+	 *           B     G
+	 *         A   D     I
+	 *            C E   H
 	 * @return
 	 */
 	private static Tree<String> newLetterTree() {
@@ -162,7 +194,7 @@ public class TreeTest {
 	 *          5
 	 *     4        8
 	 *   11      13    4  
-	 *  7  2          5 1
+	 *  7  2         3   1
 	 * @return
 	 */
 	private static Tree<Integer> newNumberTree() {
@@ -177,7 +209,7 @@ public class TreeTest {
 
 		tree.root.right.left = new Node<>(13);
 		tree.root.right.right = new Node<>(4);
-		tree.root.right.right.left = new Node<>(5);
+		tree.root.right.right.left = new Node<>(3);
 		tree.root.right.right.right = new Node<>(1);
 
 		return tree;

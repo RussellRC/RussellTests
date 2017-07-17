@@ -2,7 +2,6 @@ package russell.tests.algorithms.domain;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -36,7 +35,7 @@ public class Tree<T> {
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			Node other = (Node) obj;
+			Node<?> other = (Node<?>) obj;
 			if (data != other.data)
 				return false;
 			return true;
@@ -166,7 +165,7 @@ public class Tree<T> {
 		final Queue<Node<?>> pending = new LinkedList<>();
 		pending.add(node);
 
-		Node current = null;
+		Node<?> current = null;
 		while (!pending.isEmpty()) {
 			current = pending.poll();
 			visit(current);
@@ -327,5 +326,83 @@ public class Tree<T> {
 	    rootToLeafPaths(node.left, path, result);
 	    rootToLeafPaths(node.right, path, result);
 	    path.remove(path.size()-1);
+	}
+	
+	/**
+	 * Returns whether there is a path from root to a node with given value
+	 * @param root
+	 * @param path
+	 * @param value
+	 * @return
+	 */
+	public static <T> boolean pathToNode(final Node<T> root, List<Node<T>> path, final T value) {
+	    if (root == null) {
+	        return false;
+	    }
+	    if (path == null) {
+	        path = new ArrayList<>();
+	    }
+	    
+	    path.add(root);
+	    
+	    if (root.data == value) {
+	        return true;
+	    }
+	    
+	    boolean onLeft = false;
+	    boolean onRight = false;
+	    if (root.left != null) {
+	        onLeft = pathToNode(root.left, path, value); 
+	    }
+	    if (root.right != null) {
+	        onRight = pathToNode(root.right, path, value);
+	    }
+	    if (onLeft || onRight) {
+	        return true;
+	    }
+	  
+	    // If not present in subtree rooted with root, remove root from path and return False 
+	    path.remove(path.size()-1);
+	    return false;
+	}
+	
+	/**
+	 * Finds distance between 2 values
+	 * http://www.geeksforgeeks.org/find-distance-two-given-nodes/
+	 * @param root
+	 * @param data1
+	 * @param data2
+	 * @return
+	 */
+	public static <T> int distance(Node<T> root, T data1, T data2) {
+	    if (root == null || data1 == null || data2 == null) {
+	        return 0;
+	    }
+	    
+	    //	path to data1
+        final List<Node<T>> path1 = new ArrayList<>();
+        final boolean pathData1 = pathToNode(root, path1, data1);
+        if (!pathData1) {
+            return 0;
+        }
+        
+        // path to data2
+        final List<Node<T>> path2 = new ArrayList<>();
+        final boolean pathToData2 = pathToNode(root, path2, data2);
+        if (!pathToData2) {
+            return 0;
+        }
+        
+        // find common path length
+        int i = 0;
+        while (i < path1.size() && i < path2.size()) {
+            if (path1.get(i) != path2.get(i)) {
+                break;
+            }
+            i = i+1;
+        }
+        // Dist(n1, n2) = Dist(root, n1) + Dist(root, n2) - 2*Dist(root, lca)
+        // lca = lowest common ancestor               
+        return path1.size() + path2.size() - 2*i;
 	}
 }

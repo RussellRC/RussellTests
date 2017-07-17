@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.TimeZone;
 import java.util.function.Function;
@@ -50,22 +49,13 @@ public class RussellTests {
     
     
     public static void main(String[] args) {
-
-        System.out.println('a' < 'b');
-
-    }
-    
-    public static void testProfit() {
-    	//int[] prices = {100, 90, 80, 70, 60};
-    	int[] prices = {60, 70, 80, 90, 100};
-    	
-    	int profit = 0;
-        int minElement = Integer.MAX_VALUE;
-        for(int i=0; i<prices.length; i++){
-           profit = Math.max(profit, prices[i]-minElement);
-           minElement = Math.min(minElement, prices[i]);
-        }
-        System.out.println(profit);
+        
+        int x = 10;
+        System.out.println(~x);
+        
+        System.out.println(Integer.toBinaryString(10));
+        System.out.println(Integer.valueOf("0101", 2));
+        
     }
     
     public static void testToColumn() {
@@ -92,54 +82,6 @@ public class RussellTests {
         } else
             throw new RuntimeException("Invalid Column #" + (num + 1));
     }
-    
-    public static void testParseLong() {
-        System.out.println(Long.MIN_VALUE);
-        System.out.println(parseLong(String.valueOf(Long.MIN_VALUE)));
-        System.out.println("===");
-        System.out.println(Long.MAX_VALUE);
-        System.out.println(parseLong(String.valueOf(Long.MAX_VALUE)));
-        System.out.println("===");
-        
-        Random r = new Random();
-        int i = 10000;
-        while (i > 0) {
-            final long nextLong = r.nextLong();
-            if (nextLong != parseLong(String.valueOf(nextLong))) {
-                System.out.println("ERROR!!!  " + nextLong);
-            }
-            i--;
-        }
-    }
-    
-    public static long parseLong(final String s) {
-        final boolean isNegative = s.charAt(0) == '-';
-        int index = isNegative ? 1 : 0;
-        
-        long result = 0;
-        while (index < s.length()) {
-            if (result * 10 > 0) {
-                throw new NumberFormatException("Number out of range");
-            }
-            result = result * 10;
-            final int digit = Character.getNumericValue(s.charAt(index));
-            if (result - digit > 0) {
-                throw new NumberFormatException("Number out of range"); 
-            }
-            result = result - digit;
-            
-            index++;
-        }
-        
-        if (!isNegative && -result < 0) {
-            // End up in positive MIN_VALUE
-            throw new NumberFormatException("Number out of range");
-        }
-        
-        return isNegative ? result : -result;
-    }
-        
-    
     
     public static void filter() {
         final List<String> l1 = Arrays.asList("1", "2", "3");
