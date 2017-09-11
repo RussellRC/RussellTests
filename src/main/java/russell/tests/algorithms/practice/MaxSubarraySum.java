@@ -48,30 +48,4 @@ public class MaxSubarraySum {
         return maxNonCont;
     }
     
-    /**
-     * First approach to max continuous sub-array
-     * Throws OOM on big arrays.  Use under your own risk
-     * @param array
-     * @return
-     */
-    private static int maxCont_OOM(final int[] array) {
-        int greaterSingle = Integer.MIN_VALUE;
-        final int[][] matrix = new int[array.length][array.length];
-        
-        // init
-        for (int i = 0; i < array.length; i++) {
-            matrix[0][i] = array[i];
-            greaterSingle = array[i] > greaterSingle ? array[i] : greaterSingle;
-        }
-        
-        int maxCont = matrix[0][0];
-        for (int y = 1; y < array.length; y++) {
-            for (int x = 1; x < array.length; x++) {
-                matrix[y][x] = matrix[0][x] + matrix[y-1][x-1];
-                maxCont = matrix[y][x] > maxCont ? matrix[y][x] : maxCont;
-            }
-        }
-        maxCont = maxCont > greaterSingle ? maxCont : greaterSingle;
-        return maxCont;
-    }
 }

@@ -14,6 +14,11 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Undirected graph
+ * @author russellrazo
+ *
+ */
 public class Graph {
 
 	public static final Logger log = LoggerFactory.getLogger(Graph.class);
@@ -219,37 +224,37 @@ public class Graph {
     }
     
     public static Graph cloneGraph(final Node node) {
-    	// Map of visited nodes, where k=node v=clone, so that there is only 1 clone per node
-    	final Map<Node, Node> visited = new HashMap<>();
-    	final Queue<Node> pending = new LinkedList<>();
-    	
-    	Node root = new Node(node.value);
-    	
-    	visited.put(node, root);
-    	pending.add(node);
-    	Node current, clone;
-    	
-    	while (!pending.isEmpty()) {
-    		current = pending.poll();
-    		clone = visited.get(current);
-    		clone.adjacents = new ArrayList<>();
-    		
-    		for (Node adjacent : current.adjacents) {
-    			Node adjacentClone = visited.get(adjacent);
-    			if (adjacentClone == null) {
-    				// Create new clone when it doesn't already exist
-    				adjacentClone = new Node(adjacent.value);
-    			}
-    			clone.adjacents.add(adjacentClone);
-    			
-    			if (!visited.containsKey(adjacent)) {
-    				pending.add(adjacent);
-    				visited.put(adjacent, adjacentClone);
-    			}
-    		}
-    	}
-    	
-    	return new Graph(root);
+        // Map of visited nodes, where k=node v=clone, so that there is only 1 clone per node
+        final Map<Node, Node> visited = new HashMap<>();
+        final Queue<Node> pending = new LinkedList<>();
+
+        Node root = new Node(node.value);
+
+        visited.put(node, root);
+        pending.add(node);
+        Node current, clone;
+
+        while (!pending.isEmpty()) {
+            current = pending.poll();
+            clone = visited.get(current);
+            clone.adjacents = new ArrayList<>();
+
+            for (Node adjacent : current.adjacents) {
+                Node adjacentClone = visited.get(adjacent);
+                if (adjacentClone == null) {
+                    // Create new clone when it doesn't already exist
+                    adjacentClone = new Node(adjacent.value);
+                }
+                clone.adjacents.add(adjacentClone);
+
+                if (!visited.containsKey(adjacent)) {
+                    pending.add(adjacent);
+                    visited.put(adjacent, adjacentClone);
+                }
+            }
+        }
+
+        return new Graph(root);
     }
     
     

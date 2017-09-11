@@ -30,6 +30,7 @@ public class LowestNumber {
             return;
         }
         
+        // find the smallest digit and its index
         int min = Character.digit(str.charAt(0), 10);
         int minIndex = 0;
         for (int i = 1; i <= removeChars; i++) {
@@ -39,6 +40,7 @@ public class LowestNumber {
                 minIndex = i;
             }
         }
+        // append smallest digit and recurse
         result.append(min);
         lowestNumber(str.substring(minIndex+1), removeChars-minIndex, result);
     }

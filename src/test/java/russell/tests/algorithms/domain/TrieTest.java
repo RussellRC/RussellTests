@@ -16,6 +16,6 @@ public class TrieTest {
         
         System.out.println(trie.insert("holland"));
         
-        
+        System.out.println(trie.contains("hell"));
     }
 }

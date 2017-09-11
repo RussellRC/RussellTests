@@ -155,11 +155,21 @@ public class Tree<T> {
 			leftHeight = getHeight(node.left);
 		}
 		if (node.right != null) {
-			leftHeight = getHeight(node.right);
+		    rightHeight = getHeight(node.right);
 		}
 
 		return Math.max(leftHeight, rightHeight) + 1;
 	}
+	
+	public static int maxDepth(final Node<?> node) {
+	    if (node == null) {
+	        return 0;
+	    }
+	    int leftHeight = maxDepth(node.left);
+	    int rightHeight = maxDepth(node.right);
+
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
 
 	public static void bfs(final Node<?> node) {
 		final Queue<Node<?>> pending = new LinkedList<>();

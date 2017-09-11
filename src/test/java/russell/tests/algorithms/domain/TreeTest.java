@@ -136,6 +136,11 @@ public class TreeTest {
 	public void testTreeHeight() {
 		System.out.println("height of tree: " + Tree.getHeight(letterTree.root));
 	}
+	
+	@Test
+    public void testMaxDepth() {
+        System.out.println("height of tree: " + Tree.maxDepth(letterTree.root));
+    }
 
 	@Test
 	public void testInOrderRecursive() {

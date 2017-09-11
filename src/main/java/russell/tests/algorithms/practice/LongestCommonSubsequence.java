@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 /**
  * http://www.geeksforgeeks.org/dynamic-programming-set-4-longest-common-subsequence/
+ * LCS for input Sequences “ABCDGH” and “AEDFHR” is “ADH” of length 3.
+ * LCS for input Sequences “AGGTAB” and “GXTXAYB” is “GTAB” of length 4.
  */
 public class LongestCommonSubsequence {
 
@@ -30,6 +32,7 @@ public class LongestCommonSubsequence {
         for (int i = 0; i <= m; i++) {
             for (int j = 0; j <= n; j++) {
                 if (i == 0 || j == 0) {
+                    // if any of the strings is empty, lcs = 0
                     mem[i][j] = 0;
                 } else if (s1.charAt(i-1) == s2.charAt(j-1)) {
                     mem[i][j] = mem[i-1][j-1] + 1;

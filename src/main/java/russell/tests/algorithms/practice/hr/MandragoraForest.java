@@ -1,4 +1,4 @@
-package russell.tests.algorithms.practice;
+package russell.tests.algorithms.practice.hr;
 
 import java.util.Arrays;
 import java.util.Scanner;

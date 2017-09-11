@@ -1,4 +1,4 @@
-package russell.tests.algorithms.practice;
+package russell.tests.algorithms.practice.hr;
 
 import java.util.HashSet;
 import java.util.Set;

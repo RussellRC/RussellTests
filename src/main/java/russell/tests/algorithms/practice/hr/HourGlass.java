@@ -1,6 +1,5 @@
-package russell.tests.algorithms.practice;
-import java.io.*;
-import java.util.*;
+package russell.tests.algorithms.practice.hr;
+import java.util.Scanner;
 
 /**
  * https://www.hackerrank.com/challenges/2d-array

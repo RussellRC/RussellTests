@@ -19,7 +19,7 @@ public class Permutations {
         for (int i = start; i <= end; i++) {
             swap(sb, start, i);
             permutations(sb, start+1, end);
-            swap(sb, start, i);
+            swap(sb, start, i); // return string to the previous state
         }
     }
     

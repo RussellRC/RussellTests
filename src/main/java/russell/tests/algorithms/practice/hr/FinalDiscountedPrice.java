@@ -1,4 +1,4 @@
-package russell.tests.algorithms.practice;
+package russell.tests.algorithms.practice.hr;
 
 import java.util.Arrays;
 
@@ -32,23 +32,25 @@ public class FinalDiscountedPrice {
         
         // Last element is never discounted
         int lastDiscount = prices[prices.length - 1];
-        int total = lastDiscount;
+        int total = prices[prices.length - 1];
         
-        // Deque would be cool for this
         final int[] noDiscountIndexes = new int[discounts.length];
         noDiscountIndexes[noDiscountIndexes.length-1] = discounts.length-1;
         
         int j = noDiscountIndexes.length-2;
         for (int i = discounts.length-2; i >= 0; i--) {
             if (lastDiscount <= prices[i]) {
+                // apply discount if current price is bigger
                 discounts[i] = lastDiscount;
             } else {
+                // no discount if current price is smaller
                 discounts[i] = 0;
                 lastDiscount = 0;
                 noDiscountIndexes[j--] = i;
             }
             
             if (i > 0 && prices[i] <= prices[i-1]) {
+                // update last discount if next element is <=
                 lastDiscount = prices[i];
             }
             

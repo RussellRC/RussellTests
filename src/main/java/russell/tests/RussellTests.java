@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -50,12 +51,19 @@ public class RussellTests {
     
     public static void main(String[] args) {
         
-        int x = 10;
-        System.out.println(~x);
         
-        System.out.println(Integer.toBinaryString(10));
-        System.out.println(Integer.valueOf("0101", 2));
-        
+        System.out.println(1 << 3);
+        System.out.println(4 & 7);
+        System.out.println(100 >> 2);
+    }
+    
+    public static void upperDiagonal() {
+        for (int i = 1; i < 10; i++) {
+            for (int y = 0, x = i; x < 10; y++, x++) {
+                System.out.print(y + "," + x + "  ");
+            }
+            System.out.println();
+        }
     }
     
     public static void testToColumn() {

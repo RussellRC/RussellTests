@@ -23,8 +23,8 @@ public class Partition {
             partitions.add(new ArrayList<>(partial));
         } else {
             // Iterate through all numbers i less than n.
-            // Avoid duplicate solutions by ensuring that the partial array is always non-increasing
             for (int i = n; i > 0; i--) {
+                // Avoid duplicate solutions by ensuring that the partial array is always non-increasing
                 if (partial.isEmpty() || partial.get(partial.size() - 1) >= i) {
                     partial.add(i);
                     partition(n - i, partial, partitions);

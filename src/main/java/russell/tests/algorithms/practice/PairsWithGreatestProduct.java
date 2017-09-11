@@ -4,6 +4,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * http://www.geeksforgeeks.org/find-pair-with-greatest-product-in-array/
+ *
+ * Given an array of n elements, 
+ * find the greatest number such that it is product of two elements of given array. 
+ * If no such element exists, print -1.
+ * Elements are within the range of 1 to 10^5.
+ */
 public class PairsWithGreatestProduct {
 
     public static void main(String[] args) {
