@@ -11,7 +11,7 @@ public class Heapify {
         System.out.println(Arrays.toString(arr));
     }
     
-    public static void heapify(final int arr[], final int index) {
+    public static void heapify(final int[] arr, final int index) {
         int largest = index;  // Initialize largest as root
         int left = 2*index + 1;  // left = 2*i + 1
         int right = 2*index + 2;  // right = 2*i + 2

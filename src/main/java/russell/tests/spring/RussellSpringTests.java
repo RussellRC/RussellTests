@@ -14,9 +14,6 @@ import java.util.concurrent.Future;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.social.connect.ConnectionRepository;
-import org.springframework.social.facebook.api.Facebook;
-import org.springframework.social.facebook.api.impl.FacebookTemplate;
 
 
 public class RussellSpringTests {
@@ -24,8 +21,6 @@ public class RussellSpringTests {
     static ApplicationContext ctx;
     
     public static void main(String[] args) throws Exception {
-        
-        Facebook fb = new FacebookTemplate("");
         
         ctx = new AnnotationConfigApplicationContext(RussellConfig.class);
         

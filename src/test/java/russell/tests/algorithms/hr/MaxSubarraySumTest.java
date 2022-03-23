@@ -6,10 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.springframework.util.Assert;
 
 import russell.tests.algorithms.practice.MaxSubarraySum;
 
@@ -40,7 +40,7 @@ public class MaxSubarraySumTest {
         for (int[] array : cases) {
             final String result = MaxSubarraySum.maxSubarray(array);
             final String expected = scanOut.nextLine();
-            Assert.isTrue(expected.equals(result));
+            Assert.assertTrue(expected.equals(result));
         }
         
         System.out.println("Success!");

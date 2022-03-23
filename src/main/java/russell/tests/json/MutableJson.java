@@ -167,6 +167,7 @@ class ArrayToken extends Token {
         list.set(index, newValue);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void create(Map<String, Object> data, Iterator<Token> path) {
         List<Object> list = (List<Object>) data.get(fieldName);

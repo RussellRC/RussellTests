@@ -122,6 +122,7 @@ public class TrinaryTree {
     static Node delete(Node root, int value) {
         if(root == null){
             System.out.println("Can not perform deletion, Tree is empty.");
+            return null;
         }
         Node node = root;
         while (node.right != null || node.left != null) {

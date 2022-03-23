@@ -10,7 +10,7 @@ public class Singleton {
         }
     }
  
-    
+    @SuppressWarnings("unchecked")
     public static void main(String[] args) throws Exception {
         System.out.println(singleton);
         
