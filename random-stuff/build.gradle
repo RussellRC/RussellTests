@@ -1,0 +1,29 @@
+dependencies {
+    implementation 'javax.inject:javax.inject'
+    implementation "com.google.code.findbugs:jsr305"
+    implementation "javax.ws.rs:javax.ws.rs-api"
+
+    implementation 'org.springframework.boot:spring-boot'
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+    implementation 'org.apache.commons:commons-lang3'
+
+    // Jackson
+    implementation "com.fasterxml.jackson.core:jackson-databind"
+    implementation "com.fasterxml.jackson.core:jackson-annotations"
+    implementation "com.fasterxml.jackson.core:jackson-core"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jdk8"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-guava"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-smile"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml"
+
+    implementation 'net.sf.opencsv:opencsv'
+    implementation 'org.apache.commons:commons-csv'
+    implementation 'com.jayway.jsonpath:json-path'
+    implementation 'org.eclipse.jetty:jetty-client'
+    implementation 'commons-codec:commons-codec'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}

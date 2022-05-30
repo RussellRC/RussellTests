@@ -1,0 +1,116 @@
+buildscript {
+    ext {
+        springBootVersion = '2.6.1'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath ('io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE') {
+            exclude module: 'log4j'
+        }
+        classpath ("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    project.group = 'org.russell'
+    project.version = '1.0-SNAPSHOT'
+
+    ext['jackson.version'] = '2.11.4'
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 11
+    targetCompatibility = 11
+
+    repositories {
+        mavenCentral()
+    }
+
+    sourceSets {
+        integrationTest {
+            java.srcDirs = ['src/integration-test/java']
+            resources.srcDirs = ['src/integration-test/resources']
+            compileClasspath += main.output + test.compileClasspath
+            runtimeClasspath += main.output + test.runtimeClasspath
+        }
+    }
+
+    configurations {
+        integrationTestImplementation {
+            extendsFrom testImplementation
+        }
+        integrationTestCompileOnly {
+            extendsFrom testCompileOnly
+        }
+        integrationTestRuntimeOnly {
+            extendsFrom testRuntimeOnly
+        }
+    }
+
+    idea {
+        module {
+            downloadJavadoc = true
+            downloadSources = true
+            // Mark integration test folders as test code in IntelliJ
+            // https://youtrack.jetbrains.com/issue/IDEA-151925#comment=27-2355076
+            testSourceDirs += project.sourceSets.integrationTest.java.srcDirs
+            testSourceDirs += project.sourceSets.integrationTest.resources.srcDirs
+        }
+    }
+
+    dependencyManagement {
+        dependencies {
+            // JUnit
+            dependency 'org.junit.jupiter:junit-jupiter:5.8.1'
+            dependency 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+            dependency 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+            // Annotations
+            dependency 'javax.inject:javax.inject:1'
+            dependency "com.google.code.findbugs:jsr305:3.0.1"
+            dependency "javax.ws.rs:javax.ws.rs-api:2.1"
+
+            // Logging
+            dependency 'org.slf4j:slf4j-simple:1.7.14'
+
+            // Spring
+            dependency "org.springframework.boot:spring-boot:${springBootVersion}"
+            dependency ("org.springframework.boot:spring-boot-starter:${springBootVersion}") {
+                exclude "org.springframework.boo:spring-boot-starter-logging"
+            }
+            dependency "org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}"
+
+            // Utils
+            dependency 'com.google.guava:guava:31.0.1-jre'
+            dependency 'org.apache.commons:commons-lang3:3.12.0'
+            dependency 'commons-codec:commons-codec:1.10'
+
+            // Jackson
+            dependency "com.fasterxml.jackson.core:jackson-databind:${ext['jackson.version']}"
+            dependency "com.fasterxml.jackson.core:jackson-annotations:${ext['jackson.version']}"
+            dependency "com.fasterxml.jackson.core:jackson-core:${ext['jackson.version']}"
+            dependency "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${ext['jackson.version']}"
+            dependency "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${ext['jackson.version']}"
+            dependency "com.fasterxml.jackson.datatype:jackson-datatype-guava:${ext['jackson.version']}"
+            dependency "com.fasterxml.jackson.dataformat:jackson-dataformat-smile:${ext['jackson.version']}"
+            dependency "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${ext['jackson.version']}"
+
+            // Misc
+            dependency "org.eclipse.jetty:jetty-client:9.4.24.v20191120"
+            dependency 'net.sf.opencsv:opencsv:2.3'
+            dependency 'org.apache.commons:commons-csv:1.1'
+            dependency 'com.jayway.jsonpath:json-path:2.0.0'
+
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}

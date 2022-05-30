@@ -1,0 +1,4 @@
+rootProject.name = 'RussellTests'
+include 'algorithms'
+include 'random-stuff'
+

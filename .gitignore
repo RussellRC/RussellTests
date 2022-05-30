@@ -1,4 +1,7 @@
-/target/
+classes/
+bin/
+index.html
+target/
 
 # Eclipse
 .project
@@ -14,3 +17,16 @@
 *.ipr
 *.iws
 out/
+
+# Gradle
+gradle-app.setting
+.gradle
+build/
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# MacOS
+*.DS_Store
+
+# Sonar
+/.sonar

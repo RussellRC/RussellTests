@@ -1,0 +1,13 @@
+dependencies {
+
+    implementation 'org.slf4j:slf4j-simple'
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'com.google.guava:guava'
+
+    implementation 'org.junit.jupiter:junit-jupiter-api'
+
+    runtimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
