@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.russell'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility(JavaVersion.VERSION_17)
+    targetCompatibility(JavaVersion.VERSION_17)
+}
+
+ext {
+    flinkVersion = '1.19.2'
+}
+
+dependencies {
+    compileOnly "org.apache.flink:flink-streaming-java:${flinkVersion}"
+
+    implementation "org.apache.flink:flink-java:${flinkVersion}"
+    implementation "org.apache.flink:flink-connector-kafka:3.2.0-1.19"
+
+    implementation "org.apache.kafka:kafka-clients:3.9.0"
+    implementation "org.apache.kafka:connect-json:3.9.0"
+
+    testImplementation "org.apache.flink:flink-test-utils:${flinkVersion}"
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes['Main-Class'] = "org.russell.tests.flink.FlinkJob1"
+    }
+}

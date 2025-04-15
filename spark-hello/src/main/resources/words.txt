@@ -1,0 +1,4 @@
+this is some file with words for a spark hello world app
+omg this spark is so awsome
+spark with words for hello world
+awesome spark app world hello omg

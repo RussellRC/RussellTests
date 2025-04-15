@@ -12,6 +12,7 @@ import javax.annotation.Nonnull;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
@@ -84,7 +85,7 @@ public class RussellTests {
 			return column;
 		}
 		if (num >= 0 && num < 26) {
-			column = new Character((char) ('A' + num)).toString();
+			column = Character.toString((char) ('A' + num));
 			columnCache.put(num, column);
 			return column;
 		} else if (num > 25) {

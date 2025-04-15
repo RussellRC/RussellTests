@@ -21,46 +21,23 @@ allprojects {
 
     ext['jackson.version'] = '2.11.4'
 
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'idea'
     apply plugin: 'io.spring.dependency-management'
 
-    sourceCompatibility = 21
-    targetCompatibility = 21
+    java {
+        sourceCompatibility(JavaVersion.VERSION_21)
+        targetCompatibility(JavaVersion.VERSION_21)
+    }
 
     repositories {
         mavenCentral()
-    }
-
-    sourceSets {
-        integrationTest {
-            java.srcDirs = ['src/integration-test/java']
-            resources.srcDirs = ['src/integration-test/resources']
-            compileClasspath += main.output + test.compileClasspath
-            runtimeClasspath += main.output + test.runtimeClasspath
-        }
-    }
-
-    configurations {
-        integrationTestImplementation {
-            extendsFrom testImplementation
-        }
-        integrationTestCompileOnly {
-            extendsFrom testCompileOnly
-        }
-        integrationTestRuntimeOnly {
-            extendsFrom testRuntimeOnly
-        }
     }
 
     idea {
         module {
             downloadJavadoc = true
             downloadSources = true
-            // Mark integration test folders as test code in IntelliJ
-            // https://youtrack.jetbrains.com/issue/IDEA-151925#comment=27-2355076
-            testSourceDirs += project.sourceSets.integrationTest.java.srcDirs
-            testSourceDirs += project.sourceSets.integrationTest.resources.srcDirs
         }
     }
 

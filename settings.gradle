@@ -1,4 +1,6 @@
 rootProject.name = 'RussellTests'
 include 'algorithms'
 include 'random-stuff'
+include 'flink-hello'
+include 'spark-hello'
 

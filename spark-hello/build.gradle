@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.russell'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.spark:spark-core_2.13:3.5.5'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes['Main-Class'] = "org.russell.tests.spark.SparkHello"
+    }
+}
+
+var Provider<RegularFile> jar = layout.buildDirectory.file("libs/spark-hello-1.0-SNAPSHOT.jar")
+var Provider<RegularFile> words = layout.buildDirectory.file("resources/main/words.txt")
+
+tasks.register("sparkSubmit", Exec) {
+    // Requires spark installed
+    dependsOn tasks.jar
+    commandLine '/usr/local/bin/spark-submit',
+            '--class', 'org.russell.tests.spark.SparkHello',
+            '--master', 'local[8]',
+            "${jar.get().asFile.path}",
+            "${words.get().asFile.path}"
+}
+
+tasks.register("debugSparkSubmit") {
+    doLast {
+        println("${jar.get().asFile.path}")
+        println("${words.get().asFile.path}")
+    }
+}
